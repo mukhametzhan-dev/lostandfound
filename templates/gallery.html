@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/gal.css' %}">
+    <script>
+        var gallery = document.querySelector('#gallery');
+var getVal = function (elem, style) { return parseInt(window.getComputedStyle(elem).getPropertyValue(style)); };
+var getHeight = function (item) { return item.querySelector('.content').getBoundingClientRect().height; };
+var resizeAll = function () {
+    var altura = getVal(gallery, 'grid-auto-rows');
+    var gap = getVal(gallery, 'grid-row-gap');
+    gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+        var el = item;
+        el.style.gridRowEnd = "span " + Math.ceil((getHeight(item) + gap) / (altura + gap));
+    });
+};
+gallery.querySelectorAll('img').forEach(function (item) {
+    item.classList.add('byebye');
+    if (item.complete) {
+        console.log(item.src);
+    }
+    else {
+        item.addEventListener('load', function () {
+            var altura = getVal(gallery, 'grid-auto-rows');
+            var gap = getVal(gallery, 'grid-row-gap');
+            var gitem = item.parentElement.parentElement;
+            gitem.style.gridRowEnd = "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
+            item.classList.remove('byebye');
+        });
+    }
+});
+window.addEventListener('resize', resizeAll);
+gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+    item.addEventListener('click', function () {        
+        item.classList.toggle('full');        
+    });
+});
+    </script>
+    <title>Masonry Layout con CSS Grid</title>
+</head>
+<body>
+    <h1>Masonry Gallery</h1>
+
+    <div class="gallery" id="gallery">
+        <div class="gallery-item">
+            
+            <div class="content"><img src="https://source.unsplash.com/random/?tech,care" alt=""></div>
+        </div>
+
+        <div class="gallery-item">
+            <div class="content"><img src="https://source.unsplash.com/random/?tech,work" alt=""></div>
+        </div>
+
+
+        <div class="gallery-item">
+            <div class="content"><img src="https://source.unsplash.com/random/?tech,play" alt=""></div>
+        </div>
+
+
+        <div class="gallery-item">
+                <div class="content"><img src="https://source.unsplash.com/random/?tech,play" alt=""></div>
+
+    </div>
+   
+</div>
+
+    
+
+     
+</body>
+</html>

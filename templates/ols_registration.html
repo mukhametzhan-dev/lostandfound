@@ -1,0 +1,49 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}" type="text/css">
+    <title>Registration</title>
+</head>
+<body>
+    {% block content %}
+<a href="{% url 'index' %}">Home</a>
+{% if user.is_authenticated %}
+<p>You are logged in as {{ user.username }}.</p>
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<h2>Registration</h2>
+<div class="wrapper">
+    <form method="post">
+    {% csrf_token %}
+        <div>
+            <label for="username">Username:</label>
+            <input class="form-control mr-sm-2" type="text" name="username" id="username" required>
+        </div>
+        <div id="divemail">
+            <label for="email">Email:</label>
+            <input class="form-control mr-sm-2" type="email" name="email" id="email" required>
+        </div>
+        <div>
+            <label for="password1">Password:</label>
+            <input class="form-control mr-sm-2" type="password" name="password1" id="password1" required>
+        </div>
+        <div>
+            <label for="password2">Confirm password:</label>
+            <input class="form-control mr-sm-2"type="password" name="password2" id="password2" required>
+        </div>
+        <button type="submit">Registration</button>
+    </form>
+</div>
+{% if error_message %}
+      <p style="color: red; display: flex; flex-direction: column; align-items: center;"> <b>{{ error_message }}!</b></p>
+{% endif %}
+{% endif %}
+{% endblock %}
+</body>
+</html>

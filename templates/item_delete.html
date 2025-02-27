@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Delete item{% endblock %}
+{% block content %}
+<style>
+    .centered-form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .animated {
+        animation-duration: 1s;
+        animation-fill-mode: both;
+    }
+    
+    @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    
+    .fadeIn {
+        animation-name: fadeIn;
+    }
+    </style>
+
+<div class="centered-form animated fadeIn">
+    <form method="post">
+        {% csrf_token %}
+        <p style="color: black;">Are you sure?</p>
+        <button type="submit" class="btn btn-danger">Yes</button>
+        <a href="{% url 'index' %}" class="btn btn-success">No</a>
+    </form>
+</div>
+{% endblock %}

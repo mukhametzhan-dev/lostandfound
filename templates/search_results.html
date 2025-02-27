@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Search Results{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1 style="font-family: Helvetica, sans-serif">Search Results</h1>
+        <p style="font-family: Helvetica, sans-serif">Your search query:  <b>{{ query }}</b></p>
+        <div class="row">
+        {% if items %}
+            {% for item in items %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <p class="card-text">{{ item.description }}</p>
+                            <p class="card-text"><b>Contact:</b> {{ item.contact_info }}</p>
+                            <p class="card-text"><b>@{{ item.creator_username }}</b></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ item.get_absolute_url }}" class="btn btn-sm btn-outline-info" style="color:black">View Details</a>
+                                </div>
+                                {% if item.found %}
+                                    <h5 class="text-success">Found</h5>
+                                {% else %}
+                                    <h5 class="text-danger">Not Found</h5>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p style="font-family: Helvetica, sans-serif">No items found matching your search query :(</p>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .left {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            margin-right: 40px;
+        }
+        .left img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .left h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .left p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .left label {
+            align-self: flex-start;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .left input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .left button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .left button:hover {
+            background-color: #0056b3;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .left a {
+            color: #007bff;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        .left a:hover {
+            text-decoration: underline;
+        }
+        .right {
+            flex: 1;
+            background: url('{% static "image.png" %}') no-repeat center center/cover;
+        }
+        .footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .footer a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            transition: opacity 1s ease-out;
+
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var errorMessage = document.querySelector('.error-message');
+            if (errorMessage) {
+                setTimeout(function() {
+                    errorMessage.style.opacity = '0';
+                }, 4000); 
+            }
+        };
+    </script>
+</head>
+<body>
+    {% block content %}
+    {% if user.is_authenticated %}
+        <p>You are logged in as {{ user.username }}.</p>
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <div class="container">
+            <div class="left">
+                <img src="{% static 'your-logo.svg' %}" alt="Logo" style="height: 200px; width: 200px;">
+                <h2>Sign in</h2>
+                <p>Welcome back, please sign in to your account.</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="id_username">Username:</label>
+                    <input type="text" name="username" id="username" placeholder="Username" required>
+                    <label for="id_password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <button type="submit">Continue</button>
+                    {% if error_message %}
+                        <p class="error-message"><b style="color: red;">{{ error_message }}</b></p>
+                    {% endif %}
+                </form>
+                <a href="{% url 'registration' %}">Not registered yet?</a>
+            </div>
+            <div class="right">
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+                    <h1>Lost and Found site</h1>
+                    <div class="lowtext">
+                        L&F community is designed to help students and notify about lost things. To post a notification please sign up.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="footer">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Support</a>
+        </div> -->
+    {% endif %}
+    {% endblock %}
+</body>
+</html>

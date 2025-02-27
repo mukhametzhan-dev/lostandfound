@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+</head>
+<body>
+  {% block content %}
+    <a href="{% url 'index' %}">Home</a>
+  {% if user.is_authenticated %}
+    <p>You are logged in as {{ user.username }}.</p>
+    <a href="{% url 'logout' %}">Logout</a>
+  {% else %}
+    <h2 style="font-family: Helvetica, sans-serif">L&F</h2>
+    <h3 style="font-size: 20px; text-align: center; margin-top: 0; font-family: Helvetica, sans-serif" >Your Lost & Found Support Community</h3>
+    <form method="post">
+      {% csrf_token %}
+      <div>
+        <label for="id_username">Username:</label>
+        <input class="form-control mr-sm-2" type="text" name="username" required>
+      </div>
+      <div>
+        <label for="id_password">Password:</label>
+        <input class="form-control mr-sm-2" type="password" name="password" required>
+      </div>
+        <div>
+        <a href="{% url 'registration' %}">Not registered yet?</a> </br>
+         </div>
+      <button type="submit">Login</button>
+    </form>
+    {% if error_message %}
+      <p style="color: red; display: flex; flex-direction: column; align-items: center;"> <b>{{ error_message }}!</b></p>
+    {% endif %}
+  {% endif %}
+  {% endblock %}
+</body>
+</html>

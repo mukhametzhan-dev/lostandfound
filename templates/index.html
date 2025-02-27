@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block home_active %}active{% endblock %}
+{% block content %}
+
+<style>
+    .card {
+    transition: transform .2s; /* Animation */
+}
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #f8f8f8;
+}
+.card:hover {
+    transform: scale(1.05); 
+}
+.username {
+    color: #000000;
+}
+</style>
+
+    <div class="container">
+        <div class="row">
+        {% for i in items %}
+            <div class="card col-12 col-sm-6 col-md-4 mb-3">
+              <img class="card-img-top" src="{{ i.image.url }}" alt="{{ i.title }}">
+              <div class="card-body">
+                <h5 class="card-title"  style="color: black;">{{ i.title }}</h5>
+                <p class="card-text"  style="color: black;">{{ i.description }}</p>
+
+                <p class="card-text" style="color:black"><b style="color: black;">Contact:</b> {{ i.contact_info }}</p>
+                <p class="card-text"><b  style="color: black;">@{{ i.creator_username }}</b></p>
+                <p class="card-text"><b  style="color: black;">{{ i.created_at }}</b></p>
+                {% if i.found_by %}
+                    <h5 class="text-success">Found by <span class="username"> @{{i.found_by}} </span> </h5>
+                
+                {% else %}
+                    <h5 class="text-danger">Not Found</h5>
+                    <form method="post" action="{% url 'found' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="item" value="{{ i.pk }}"/>
+                        <button type="submit" class="btn btn-success btn-block">Found it!</button>
+                    </form>
+                {% endif %}
+              </div>
+{#              {% if request.user.username == i.creator_username %}#}
+                  <div class="card-footer">
+                      <a href="{{ i.get_absolute_url }}" class="btn btn-outline-primary btn-block" style="color: black;">Read more</a>
+                  </div>
+{#              {% endif %}#}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="jumbotron jumbotron-fluid d-flex flex-column align-items-center justify-content-center" style="background-image: url(//moodle.sdu.edu.kz/pluginfile.php/1/theme_alpha/heroimg/1714460254/0041.jpg); background-size: cover; height: 100vh;">
+    <div class="text-wrapper d-flex flex-column align-items-center justify-content-center">
+      <h1 class="display-4">Lost & Found</h1>
+      <p class="lead">Helping you find what you've lost and return what you've found.</p>
+      <hr class="my-4">
+      <p>Click below to create a post:</p>
+      <a class="btn btn-primary btn" href="{% url 'create' %}" role="button">Create Post</a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ item.title }}{% endblock %}
+{% block content %}
+    <img class="img-rounded img-responsive" src="{{ item.image.url }}" />
+    <h1>{{ item.title }}</h1>
+    <p class="lead">{{ item.description }}</p>
+
+    {% if request.user.username == item.creator_username %}
+    <a href="{% url 'edit' item.pk %}" class="btn btn-warning"><span class="fa fa-edit"></span></a>
+    <a href="{% url 'delete' item.pk %}" class="btn btn-danger"><span class="fa fa-remove"></span></a>
+    {% endif %}
+
+{% endblock %}

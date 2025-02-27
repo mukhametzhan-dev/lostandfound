@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid d-flex flex-column align-items-center justify-content-center" style="background-image: url(//moodle.sdu.edu.kz/pluginfile.php/1/theme_alpha/heroimg/1714460254/0041.jpg); background-size: cover; height: 100vh; background-color: #212153;">
+        <div class="text-wrapper d-flex flex-column align-items-center justify-content-center text-center p-4 bg-white shadow-lg animated fadeIn" style="border-radius: 10px;">
+            <h1 class="display-4" style="color: #212153; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Lost & Found</h1>
+            <p class="lead" style="color: #212153; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Helping you find what you've lost and return what you've found.</p>
+            <hr class="my-4" style="border-color: #212153;">
+            <p style="color: #212153; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Click below to create a post:</p>
+            <img src="{% static 'search.jpg' %}" alt="illus" style="height: 270px; width: 313px; margin-bottom: 20px;">
+            <div class="wrap"> <a class="btn btn-primary create-post-btn" href="{% url 'create' %}" role="button">Create Post</a> </div>
+        </div>
+        {% if error_message %}
+            <p class="error-message"><b style="color: red;">{{ error_message }}</b></p>
+        {% endif %}
+    </div>
+
+    <div class="get-started-section d-flex align-items-center justify-content-between">
+        <div class="left-content p-5">
+            <h2 class="features-header" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 2em;">Put your lost and found things in our  <br> <span class="highlight" style="color: hsl(16, 90%, 37%); text-decoration: underline;">website</span> for free just signing-up! <br> Our website allows to help people find their <span class="highlight" style="color: hsl(16, 90%, 37%); text-decoration: underline;">things </span> easily. <br> Searching , reporting, matching, all in one web-app</h2>
+        </div>
+        <div class="right-content">
+            <img src="{% static 'laptop.png' %}" style="height:450px;width:500px;" alt="Laptop" class="laptop-img">
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; height: 32vh;">
+        <h1 class="features-header" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; font-size: 2em;">Our <span class="highlight" style="color: hsl(16, 90%, 37%);">features,</span><br> that you will get</h1>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="sticker animated bounceIn">
+                <img src="{% static 'ic1.png' %}" alt="ic 1" class="img-fluid" style="height: 60px; width: 60px;">
+                <h3>It's Secure and Simple</h3>
+                <p>Create post to easily find your lost things. Security and simplicity are at the core of our platform, ensuring a smooth and safe experience for all users.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="sticker animated bounceIn" style="animation-delay: 0.5s;">
+                <img src="{% static 'ic2.png' %}" alt="ic 2" class="img-fluid" style="height: 60px; width: 60px;">
+                <h3>Advanced storage</h3>
+                <p>Platform will save all data, including contacts to make search easier. All posts are stored in a secure database, ensuring that no information is lost.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="sticker animated bounceIn" style="animation-delay: 1s;">
+                <img src="{% static 'ic3.png' %}" alt="ic 3" class="img-fluid" style="height: 60px; width: 60px;">
+                <h3>Data Protection</h3>
+                <p>We implement robust security measures, including encryption and secure servers, to protect your personal information and posted data.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<style>
+    .button:hover, .button:focus {
+        color: #313133;
+        transform: translateY(-6px);
+    }
+
+    button:hover::before, button:focus::before {
+        opacity: 1;
+    }
+
+    button::after {
+        content: '';
+        width: 30px; height: 30px;
+        border-radius: 100%;
+        border: 6px solid #00FFCB;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: ring 1.5s infinite;
+    }
+
+    button:hover::after, button:focus::after {
+        animation: none;
+        display: none;
+    }
+
+    @keyframes ring {
+        0% {
+            width: 30px;
+            height: 30px;
+            opacity: 1;
+        }
+        100% {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+    }
+
+    .create-post-btn {
+        animation: bounce 2s infinite;
+    }
+
+    .text-wrapper {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .text-wrapper h1, .text-wrapper p, .text-wrapper a {
+        color: #212153;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    .jumbotron {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sticker {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sticker img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .get-started-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .left-content {
+        flex: 1;
+    }
+
+    .right-content {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .laptop-img {
+        height: 450px;
+        width: 500px;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("Page loaded, starting animation");
+        var btn = document.querySelector('.create-post-btn');
+        btn.classList.add('animated', 'fadeIn');
+
+        // Carousel initialization
+        $('.carousel').carousel({
+            interval: 2000
+        });
+    });
+</script>

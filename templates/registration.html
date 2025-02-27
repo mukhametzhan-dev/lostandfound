@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnel Management System</title>
+    <script>
+        window.onload = function() {
+            var errorMessage = document.querySelector('.error-message');
+            if (errorMessage) {
+                setTimeout(function() {
+                    errorMessage.style.opacity = '0';
+                }, 4000);
+            }
+        };
+    </script>
+    <style>
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            transition: opacity 1s ease-out;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .left {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+        }
+        .left img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .left h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .left p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .left label {
+            align-self: flex-start;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .left input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .left button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .left button:hover {
+            background-color: #0056b3;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .left a {
+            color: #007bff;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        .left a:hover {
+            text-decoration: underline;
+        }
+        .right {
+            flex: 1;
+            background-color: #fff;
+        }
+        .footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .footer a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    {% if user.is_authenticated %}
+        <p>You are logged in as {{ user.username }}.</p>
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <div class="container">
+            <div class="left">
+                <img src="{% static 'your-logo.svg' %}" alt="Logo" style="height: 190px; width: 200px;">
+                <h2>Sign up</h2>
+                <p>Hello! Create an account.</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" placeholder="Username" required>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" required>
+                    <label for="password1">Password:</label>
+                    <input type="password" id="password1" name="password1" placeholder="Password" required>
+                    <label for="password2">Confirm password:</label>
+                    <input type="password" id="password2" name="password2" placeholder="Confirm" required>
+                    <button type="submit">Register</button>
+                    {% if error_message %}
+                        <p class="error-message"><b style="color: red;">{{ error_message }}</b></p>
+                    {% endif %}
+                </form>
+                <a href="{% url 'login' %}">Already have an account?</a>
+            </div>
+            <div class="right">
+                <!-- Empty white space -->
+            </div>
+        </div>
+        <!-- <div class="footer">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Support</a>
+        </div> -->
+    {% endif %}
+    {% endblock %}
+</body>
+</html>
