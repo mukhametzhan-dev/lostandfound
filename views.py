@@ -78,9 +78,11 @@ def delete_item(request, pk):
         item.delete()
         messages.success(request, 'Item deleted successfully! ')
         return render(request, 'index.html', {'error_message': 'Item deleted successfully!'})
-        return redirect('index')
+        # return redirect('index')
     
     return render(request, 'item_delete.html', {'item': item, 'confirm_delete': True})
+
+
 
 
 def my_login_view(request):
@@ -88,16 +90,22 @@ def my_login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
-            print("User logged in successfully")
-            return redirect('index')
+            if not user.is_staff: 
+
+                messages.success(request, "Welcome, Staff! You have special permissions.")
+                print("Staff member logged in")
+            else:
+                messages.success(request, "Welcome back!")
+
+            return redirect('profile') 
         else:
-            print("Invalid login credentials")
+            messages.error(request, "Invalid login credentials")
             return render(request, 'login.html', {'error_message': 'Invalid login credentials'})
-        
-    else:
-        return render(request, 'login.html')
+
+    return render(request, 'login.html')
 
 
 def my_registration_view(request):
@@ -116,7 +124,7 @@ def my_registration_view(request):
             return render(request, 'registration.html', {'error_message': error_message})
 
         myuser = User.objects.create_user(username, email, pass1)
-        myuser.is_staff = True
+        # myuser.is_staff = True
         myuser.save()
 
         messages.success(request, "Your account has been signed up successfully!")

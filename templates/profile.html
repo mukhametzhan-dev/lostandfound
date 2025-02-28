@@ -211,6 +211,14 @@
             <img src="{% if user.profile.image %}{{ user.profile.image.url }}{% else %}{% static 'profile_pics/default.png' %}{% endif %}" alt="{{ user.username }}'s Profile Picture" class="profile-pic">
             <div class="profile-details">
                 <h2 style="color: black;"><img src="{% static 'social.png' %}" alt="Social Icon" width="20" height="20">{{ request.user.username }}</h2>
+
+                <!-- {{ request.user.username }} -->
+
+                {% if request.user.is_staff %}
+                    <span class="badge badge-warning">STAFF</span> 
+
+                {% endif %}
+
                 <p><strong><img src="{% static 'mail.png' %}" alt="Email Icon" width="30" height="20"> Email:</strong> {{ request.user.email }}</p>
                 <p><strong> <img src="{% static 'calendar.png' %}" alt="calendar Icon" width="20" height="20"> Date Joined:</strong> {{ request.user.date_joined }}</p>
 
