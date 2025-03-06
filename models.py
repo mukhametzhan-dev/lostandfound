@@ -12,6 +12,9 @@ class Item(models.Model):
     contact_info = models.CharField(max_length=255)
     creator_username = models.CharField(max_length=150)
     created_at = models.DateTimeField(default=timezone.now) 
+    creator_id = models.IntegerField(default=0)
+    found_username = models.CharField(max_length=150, blank=True, null=True)
+    # creator = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -24,6 +27,7 @@ class Usr(models.Model):
     user_id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=255)
     email = models.EmailField()
+
 
 
     def __str__(self):

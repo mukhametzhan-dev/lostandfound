@@ -19,8 +19,8 @@ class IndexView(ListView):
         return Item.objects.all()
 @login_required
 def profile_view(request):
-    found_items = Item.objects.filter(found_by=request.user.username)
-    lost_items = Item.objects.filter(creator_username=request.user.username).exclude(found_by=request.user.username)
+    found_items = Item.objects.filter(found_by=request.user.pk)
+    lost_items = Item.objects.filter(creator_username=request.user.pk).exclude(found_by=request.user.pk)
     context = {
         'found_items': found_items,
         'lost_items': lost_items,
@@ -30,7 +30,9 @@ def profile_view(request):
 @login_required
 def FoundView(request):
     item = get_object_or_404(Item, pk=request.POST['item'])
-    item.found_by = request.user.username
+    # item.found_by = request.user.username
+    item.found_by = request.user.pk # pravilno
+    item.found_username = request.user.username
     item.save()
     return redirect('index')
 
@@ -42,6 +44,8 @@ def create_item(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.creator_username = request.user.username
+            item.creator_id = request.user.pk 
+        
             item.save()
             return redirect('index')  
     else:
@@ -52,6 +56,7 @@ def create_item(request):
 @login_required
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
+    print(item.creator_id)
     return render(request, 'item.html', {'item': item})
 
 
@@ -122,6 +127,9 @@ def my_registration_view(request):
         if pass1 != pass2:
             error_message = "Passwords didn't match!"
             return render(request, 'registration.html', {'error_message': error_message})
+        if len(pass1) < 8:
+            error_message = "Password must be at least 8 characters long"
+            return render(request, 'registration.html', {'error_message': error_message})
 
         myuser = User.objects.create_user(username, email, pass1)
         # myuser.is_staff = True
@@ -181,8 +189,12 @@ def about_us(request):
 
 @login_required
 def profile(request):
-    found_items = Item.objects.filter(found_by=request.user.username)
-    lost_items = Item.objects.filter(creator_username=request.user.username).exclude(found_by=request.user.username)
+    # found_items = Item.objects.filter(found_by=request.user.username) incorrect implementation , because username can be changed
+    found_items = Item.objects.filter(found_by=request.user.pk)
+    # print(request.user.pk)
+    # lost_items = Item.objects.filter(creator_username=request.user.username).exclude(found_by=request.user.username)
+    # lost_items = Item.objects.filter(creator_username=request.user.pk).exclude(found_by=request.user.pk)
+    lost_items = Item.objects.filter(creator_id=request.user.pk).exclude(found_by=request.user.pk)
 
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:

@@ -34,7 +34,7 @@
                 <p class="card-text"><b  style="color: black;">@{{ i.creator_username }}</b></p>
                 <p class="card-text"><b  style="color: black;">{{ i.created_at }}</b></p>
                 {% if i.found_by %}
-                    <h5 class="text-success">Found by <span class="username"> @{{i.found_by}} </span> </h5>
+                    <h5 class="text-success">Found by <span class="username"> @{{i.found_username}} </span> </h5>
                 
                 {% else %}
                     <h5 class="text-danger">Not Found</h5>

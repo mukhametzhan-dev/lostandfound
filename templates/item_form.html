@@ -2,7 +2,7 @@
 {% block title %}Create Item{% endblock %}
 {% block create_active %}active{% endblock %}
 {% block content %}
-    <h1>Create a new ITEM</h1>
+    <h1>Create a new Item</h1>
     <form method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
