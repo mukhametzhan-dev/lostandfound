@@ -1,6 +1,4 @@
-Here is a simple **README.md** file for your **Lost and Found** Django project:
 
----
 
 # **Lost and Found Web Application**
 
@@ -113,34 +111,11 @@ python manage.py runserver
 
 ---
 
-## **📌 GitHub Workflow**
-To maintain **code quality**, use the following Git workflow:
 
-1. **Create a new branch** for each feature:
-   ```bash
-   git checkout -b feature/your-feature
    ```
-2. **Commit changes** with a meaningful message:
-   ```bash
-   git commit -m "Added new feature: ..."
-   ```
-3. **Push changes** and create a Pull Request:
-   ```bash
-   git push origin feature/your-feature
-   ```
-4. **Code Review**: At least one reviewer must approve the PR before merging into `main`.
-
-📌 If a reviewer approves and the feature **works**, they get **+10% grade**.  
-📌 If the feature **breaks during presentation**, the reviewer **loses -10% grade**.
 
 ---
 
-## **📌 Contributing**
-- Fork the repository and create a pull request.
-- Ensure your code follows **PEP8** style guidelines.
-- Run tests before submitting:
-  ```bash
-  python manage.py test
   ```
 
 ---
