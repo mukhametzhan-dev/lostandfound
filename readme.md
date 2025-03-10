@@ -130,3 +130,4 @@ This project is open-source and available under the **MIT License**.
 ---
 
 Let me know if you want any modifications! 😊
+![mukhametzhan-dev's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=radical)
