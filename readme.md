@@ -18,6 +18,7 @@ This is a **Django-based web application** that allows users to **report lost an
 
 ## **📌 Installation Guide**
 Follow these steps to set up and run the project locally.
+USE DOCKER to run it
 
 ### **1️⃣ Clone the Repository**
 ```bash
@@ -109,16 +110,6 @@ python manage.py runserver
 +----------------------+
 ```
 
----
-
-
-   ```
-
----
-
-  ```
-
----
 
 ## **📌 License**
 This project is open-source and available under the **MIT License**.
